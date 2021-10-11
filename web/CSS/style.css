@@ -1,0 +1,17 @@
+
+/* 
+    Created on : Oct 11, 2021, 2:57:58 PM
+    Author     : Connor
+*/
+
+ body{
+
+    font-family: 'Montserrat', sans-serif;
+    background: #443c3c;
+    color: white;
+    align-items: center;
+    padding: 200px;
+    display: flex;
+    flex-direction: column;
+
+}
