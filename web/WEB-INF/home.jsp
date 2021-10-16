@@ -24,7 +24,7 @@
                   <div class='subtitle'>Great news. Your name is ${user.username}</div>  
                   <br>
                   <form method="GET">
-                    <div><button class='ghost-round full-width' type="submit" name="operation" value="logout">Logout</button></div>
+                    <div><button class='ghost-round full-width' type="submit" name="logOperation" value="logout">Logout</button></div>
                   </form>
                 </div>
               </div>

@@ -1,6 +1,7 @@
 
 package servlets;
 
+import services.AccountService;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,14 +20,14 @@ public class loginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession();  
         
-        request.setAttribute("welcomeMsg", "Hope your name is Barb or Abe.");
-        
-        
-        
-        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        
+        if(session.getAttribute("user") != null){ // check if the user alread has a session that they are logged into
+             getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response); 
+        }else{ //if not logged in laready send to login page
+            request.setAttribute("welcomeMsg", "Hope your name is Barb or Abe.");   
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        }           
     }
     
     @Override
@@ -35,32 +36,25 @@ public class loginServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        if(request.getParameter("operation") != null && request.getParameter("operation").equals("login")){
+        if(request.getParameter("logOperation") != null && request.getParameter("logOperation").equals("login")){ //login button pressed
             
-            User user = new User(request.getParameter("username"),request.getParameter("password"));
+            User user = new User(request.getParameter("username"),request.getParameter("password")); //new user obj with login info from login page
             AccountService AS = new AccountService();
-            session.setAttribute("user", user);
+                       
             
+            user = AS.login(user);    // return user obj with password destroyed, or obj as null is login was wrong 
             
-            user = AS.login(user);
-           
-            if(user != null){ 
-                session.setAttribute("user", user);
-                response.sendRedirect(request.getContextPath() + "/home");               
-            }else{
+            if(user != null){  //check if login was sucessful
+                session.setAttribute("user", user); 
+                response.sendRedirect(request.getContextPath() + "/home");  
                 
+            }else{ //login failed  
                 request.setAttribute("welcomeMsg", "Hmm... Looks like your name isn't Barb or Abe.");
                 request.setAttribute("errMsg", "Password or Username was incorrect, try again.");
+                request.setAttribute("user", user);
                 getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response); 
-            }
-            
-            
-            
-        }
-        
-        
-        
-        
-        
+                
+            }            
+        }        
     }
 }

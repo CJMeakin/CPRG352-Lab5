@@ -27,7 +27,7 @@
                         <form type="password" method="POST" action="login">
                             <input type ="text" placeholder="Username" class="input-line full-width" name= "username" value="${user.username}"></input>                    
                             <input type ="password" placeholder="Password" class="input-line full-width" name= "password" value="${user.password}"></input>
-                            <div><button class="ghost-round full-width" type="submit" name="operation" value="login">Login</button></div>
+                            <div><button class="ghost-round full-width" type="submit" name="logOperation" value="login">Login</button></div>
                         </form>
                         <div>${errMsg}</div>
                     </div>

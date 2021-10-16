@@ -12,10 +12,19 @@ package model;
 public class User {
     private String username;
     private String password;
+    
 
+   
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(){
+
+    }
+    public User(Object attribute) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
   
     public void setUsername(String username) {
